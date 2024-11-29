@@ -13,30 +13,30 @@ import java.util.List;
 @Service
 public class ReservaService<mesaRepository> {
     @Autowired
-    private ReservaRepository reservaRepository;
+    private ReservaRepository ReservaRepository;
 
     @Autowired
-    private MesaRepository mesaRepository;
+    private MesaRepository MesaRepository;
 
     public Reserva crearReserva(Reserva reserva) {
-        Mesa mesa = mesaRepository.findById(reserva.getMesa().getId())
+        Mesa mesa = MesaRepository.findById(reserva.getMesa().getId())
                                    .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
         if (!mesa.isDisponible()) throw new RuntimeException("Mesa no disponible");
         mesa.setDisponible(false);
-        mesaRepository.save(mesa);
-        return reservaRepository.save(reserva);
+        MesaRepository.save(mesa);
+        return ReservaRepository.save(reserva);
     }
 
     public List<Reserva> listarReservas() {
-        return reservaRepository.findAll();
+        return ReservaRepository.findAll();
     }
 
     public void cancelarReserva(Long id) {
-        Reserva reserva = reservaRepository.findById(id)
+        Reserva reserva = ReservaRepository.findById(id)
                                            .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
         reserva.setActiva(false);
         reserva.getMesa().setDisponible(true);
-        reservaRepository.save(reserva);
-        mesaRepository.save(reserva.getMesa());
+        ReservaRepository.save(reserva);
+        MesaRepository.save(reserva.getMesa());
     }
 }

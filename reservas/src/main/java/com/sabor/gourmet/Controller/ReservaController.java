@@ -15,11 +15,11 @@ import com.sabor.gourmet.Services.ReservaService;
 public class ReservaController {
     @SuppressWarnings("rawtypes")
     @Autowired
-    private ReservaService reservaService;
+    private ReservaService ReservaService;
 
     @GetMapping
     public String listarReservas(Model model) {
-        model.addAttribute("reservas", reservaService.listarReservas());
+        model.addAttribute("reservas", ReservaService.listarReservas());
         return "reservas/listar";
     }
 
@@ -31,13 +31,13 @@ public class ReservaController {
 
     @PostMapping("/crear")
     public String crearReserva(@ModelAttribute Reserva reserva) {
-        reservaService.crearReserva(reserva);
+        ReservaService.crearReserva(reserva);
         return "redirect:/reservas";
     }
 
     @PostMapping("/cancelar/{id}")
     public String cancelarReserva(@PathVariable Long id) {
-        reservaService.cancelarReserva(id);
+        ReservaService.cancelarReserva(id);
         return "redirect:/reservas";
     }
 }
