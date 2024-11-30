@@ -12,7 +12,7 @@ public class Cliente {
     private String telefono;
     private String email;
 
-    // Getters y Setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }

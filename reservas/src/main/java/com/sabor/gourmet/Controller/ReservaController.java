@@ -5,21 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.sabor.gourmet.Model.Mesa;
 import com.sabor.gourmet.Model.Reserva;
 import com.sabor.gourmet.Services.ReservaService;
 
-@SuppressWarnings("unused")
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
-    @SuppressWarnings("rawtypes")
+
     @Autowired
-    private ReservaService ReservaService;
+    private ReservaService reservaService;
 
     @GetMapping
     public String listarReservas(Model model) {
-        model.addAttribute("reservas", ReservaService.listarReservas());
+        model.addAttribute("reservas", reservaService.listarReservas());
         return "reservas/listar";
     }
 
@@ -31,13 +29,13 @@ public class ReservaController {
 
     @PostMapping("/crear")
     public String crearReserva(@ModelAttribute Reserva reserva) {
-        ReservaService.crearReserva(reserva);
+        reservaService.crearReserva(reserva);
         return "redirect:/reservas";
     }
 
     @PostMapping("/cancelar/{id}")
     public String cancelarReserva(@PathVariable Long id) {
-        ReservaService.cancelarReserva(id);
+        reservaService.cancelarReserva(id);
         return "redirect:/reservas";
     }
 }

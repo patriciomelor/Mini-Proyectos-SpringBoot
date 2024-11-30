@@ -11,7 +11,7 @@ public class Mesa {
     private int capacidad;
     private boolean disponible;
 
-    // Getters y Setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }

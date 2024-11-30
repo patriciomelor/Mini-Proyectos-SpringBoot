@@ -11,32 +11,47 @@ import com.sabor.gourmet.Repository.ReservaRepository;
 import java.util.List;
 
 @Service
-public class ReservaService<mesaRepository> {
-    @Autowired
-    private ReservaRepository ReservaRepository;
+public class ReservaService {
 
     @Autowired
-    private MesaRepository MesaRepository;
+    private ReservaRepository reservaRepository;
+
+    @Autowired
+    private MesaRepository mesaRepository;
 
     public Reserva crearReserva(Reserva reserva) {
-        Mesa mesa = MesaRepository.findById(reserva.getMesa().getId())
-                                   .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
-        if (!mesa.isDisponible()) throw new RuntimeException("Mesa no disponible");
+        Mesa mesa = mesaRepository.findById(reserva.getMesa().getId())
+                .orElseThrow(() -> new MesaNoEncontradaException("Mesa no encontrada"));
+        if (!mesa.isDisponible()) {
+            throw new MesaNoDisponibleException("Mesa no disponible");
+        }
         mesa.setDisponible(false);
-        MesaRepository.save(mesa);
-        return ReservaRepository.save(reserva);
+        mesaRepository.save(mesa); 
+        return reservaRepository.save(reserva);
     }
 
     public List<Reserva> listarReservas() {
-        return ReservaRepository.findAll();
+        return reservaRepository.findAll();
     }
 
     public void cancelarReserva(Long id) {
-        Reserva reserva = ReservaRepository.findById(id)
-                                           .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada")); 
         reserva.setActiva(false);
         reserva.getMesa().setDisponible(true);
-        ReservaRepository.save(reserva);
-        MesaRepository.save(reserva.getMesa());
+        reservaRepository.save(reserva); // La mesa se guarda en cascada.
+    }
+}
+
+// Excepciones personalizadas
+class MesaNoEncontradaException extends RuntimeException {
+    public MesaNoEncontradaException(String message) {
+        super(message);
+    }
+}
+
+class MesaNoDisponibleException extends RuntimeException {
+    public MesaNoDisponibleException(String message) {
+        super(message);
     }
 }
