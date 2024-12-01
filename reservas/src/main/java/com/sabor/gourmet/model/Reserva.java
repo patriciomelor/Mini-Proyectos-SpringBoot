@@ -5,16 +5,16 @@ import java.time.LocalTime;
 import jakarta.persistence.*;
 
 @Entity
-public class reserva {
+public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private cliente cliente;
+    private Cliente cliente;
 
     @ManyToOne
-    private mesa mesa;
+    private Mesa mesa;
 
     @Column(nullable = false)
     private LocalDate fecha;
@@ -30,7 +30,7 @@ public class reserva {
     public String getFechaFormatted() {
         return fechaFormatted;
     }
-    
+
     public void setFechaFormatted(String fechaFormatted) {
         this.fechaFormatted = fechaFormatted;
     }
@@ -51,19 +51,19 @@ public class reserva {
         this.id = id;
     }
 
-    public cliente getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public mesa getMesa() {
-        return mesa;
+    public Mesa getMesa() {
+        return this.mesa;
     }
 
-    public void setMesa(mesa mesa) {
+    public void setMesa(Mesa mesa) {
         this.mesa = mesa;
     }
 
