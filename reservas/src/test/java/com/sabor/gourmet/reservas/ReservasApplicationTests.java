@@ -1,4 +1,4 @@
-package com.sabor.gourmet.reservas;
+package com.sabor.gourmet.Reservas;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

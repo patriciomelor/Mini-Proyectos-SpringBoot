@@ -1,11 +1,11 @@
 package com.sabor.gourmet.controller;
 
 import com.sabor.gourmet.model.reserva;
+import com.sabor.gourmet.model.cliente;
 import com.sabor.gourmet.model.mesa;
 import com.sabor.gourmet.repository.MesaRepository;
 import com.sabor.gourmet.services.ReservaService;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +18,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
 
-  @Autowired
+    @Autowired
     private MesaRepository mesaRepository;
 
     @Autowired
-    private ReservaService ReservaService;
+    private ReservaService reservaService;
+
+    public ReservaController(ReservaService reservaService) {
+        this.reservaService = reservaService;
+    }
 
     @GetMapping
-    public String listarreservas(Model model) {
-        model.addAttribute("reservas", ReservaService.listarReservas());
-        return "reservas/listar"; // Vista para listar reservas
+    public String listarReservas(Model model) {
+        List<reserva> reservas = reservaService.listarReservas(); // Ajustado el método correcto
+        model.addAttribute("reservas", reservas);
+        return "reservas/listar";
     }
 
     @GetMapping("/crear")
@@ -48,15 +52,13 @@ public class ReservaController {
         mesa mesa = mesaRepository.findById(mesaId)
             .orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID " + mesaId));
         reserva.setMesa(mesa); // Asociar la mesa con la reserva
-        ReservaService.crearReserva(reserva);
+        reservaService.crearReserva(reserva);
         return "redirect:/reservas";
     }
 
-    
-
     @PostMapping("/cancelar/{id}")
-    public String cancelarreserva(@PathVariable Long id) {
-        ReservaService.cancelarReserva(id);
+    public String cancelarReserva(@PathVariable Long id) {
+        reservaService.cancelarReserva(id);
         return "redirect:/reservas";
     }
 }

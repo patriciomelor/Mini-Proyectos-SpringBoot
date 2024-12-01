@@ -1,7 +1,7 @@
 package com.sabor.gourmet.services;
 
-import com.sabor.gourmet.model.mesa;
 import com.sabor.gourmet.model.reserva;
+import com.sabor.gourmet.model.mesa;
 import com.sabor.gourmet.repository.MesaRepository;
 import com.sabor.gourmet.repository.ReservaRepository;
 import com.sabor.gourmet.exceptions.MesaNoDisponibleException;
@@ -18,7 +18,7 @@ public class ReservaService {
 
     @Autowired
     private ReservaRepository reservaRepository;
-    
+
     public reserva crearReserva(reserva reserva) {
         if (reserva.getMesa() == null) {
             throw new RuntimeException("No se ha asociado una mesa a la reserva");
@@ -31,11 +31,9 @@ public class ReservaService {
         mesaRepository.save(mesa);
         return reservaRepository.save(reserva);
     }
-    
-    
 
     public List<reserva> listarReservas() {
-        return reservaRepository.findAll(); 
+        return reservaRepository.findAll();
     }
 
     public void cancelarReserva(Long id) {
@@ -47,5 +45,8 @@ public class ReservaService {
         reservaRepository.save(reserva);
         mesaRepository.save(mesa); // Guardar cambios en la mesa
     }
-    
+
+    public List<reserva> obtenerTodasLasReservas() {
+        return reservaRepository.findAll();
+    }
 }

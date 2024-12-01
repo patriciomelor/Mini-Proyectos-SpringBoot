@@ -25,10 +25,11 @@
             </thead>
             <tbody>
                 <tr th:each="reserva : ${reservas}">
-                    <td th:text="${reserva.Cliente.nombre}"></td>
-                    <td th:text="${reserva.Mesa.id}"></td>
-                    <td th:text="${reserva.fecha}"></td>
-                    <td th:text="${reserva.hora}"></td>
+                    <td th:text="${reserva.cliente.nombre}"></td>
+                    <td th:text="'Mesa ' + ${reserva.mesa.id}"></td>
+                    <td th:text="${reserva.mesa.capacidad}"></td>
+                    <td th:text="${#temporals.format(reserva.fecha, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#temporals.format(reserva.hora, 'HH:mm')}"></td>
                     <td th:text="${reserva.activa ? 'Sí' : 'No'}"></td>
                     <td>
                         <form th:action="@{/reservas/cancelar/{id}(id=${reserva.id})}" method="post">

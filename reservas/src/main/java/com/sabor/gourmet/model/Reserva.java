@@ -1,8 +1,8 @@
 package com.sabor.gourmet.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import jakarta.persistence.*;
 
 @Entity
 public class reserva {
@@ -13,6 +13,14 @@ public class reserva {
     @ManyToOne
     @JoinColumn(name = "mesa_id", nullable = false)
     private mesa mesa;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private cliente cliente;
+
+    private LocalDate fecha;
+
+    private LocalTime hora;
 
     private boolean activa;
 
@@ -31,6 +39,30 @@ public class reserva {
 
     public void setMesa(mesa mesa) {
         this.mesa = mesa;
+    }
+
+    public cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
     }
 
     public boolean isActiva() {
