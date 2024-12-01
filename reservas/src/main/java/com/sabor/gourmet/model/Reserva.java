@@ -9,18 +9,29 @@ public class reserva {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false) // Asegúrate de que esto coincida con tus necesidades
+    private cliente cliente;
+
+    @ManyToOne
     @JoinColumn(name = "mesa_id", nullable = false)
     private mesa mesa;
 
     private boolean activa;
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(cliente cliente) {
+        this.cliente = cliente;
     }
 
     public mesa getMesa() {
@@ -38,4 +49,6 @@ public class reserva {
     public void setActiva(boolean activa) {
         this.activa = activa;
     }
+
+    
 }
