@@ -12,13 +12,12 @@
                 <label for="Cliente" class="form-label">Cliente</label>
                 <input type="text" id="Cliente" name="Cliente.nombre" class="form-control">
             </div>
-            <label for="mesaId">Selecciona una mesa:</label>
-            <select name="mesaId" id="mesaId" class="form-control" required>
-                <option value="" disabled selected>Selecciona una mesa</option>
-                <th:block th:each="mesa : ${mesas}">
-                    <option th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.id} + ' - Capacidad: ' + ${mesa.capacidad}"></option>
-                </th:block>
-            </select>
+            <div class="mb-3">
+                <label for="mesaId" class="form-label">Seleccionar Mesa</label>
+                <select name="mesaId" id="mesaId" class="form-select">
+                    <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.id} + ' (Capacidad: ' + ${mesa.capacidad} + ')'"></option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
                 <input type="date" id="fecha" name="fecha" class="form-control">

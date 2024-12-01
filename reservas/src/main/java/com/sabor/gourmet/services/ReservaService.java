@@ -18,16 +18,20 @@ public class ReservaService {
 
     @Autowired
     private ReservaRepository reservaRepository;
-
+    
     public reserva crearReserva(reserva reserva) {
+        if (reserva.getMesa() == null) {
+            throw new RuntimeException("No se ha asociado una mesa a la reserva");
+        }
         mesa mesa = reserva.getMesa();
         if (!mesa.isDisponible()) {
             throw new MesaNoDisponibleException("La mesa con ID " + mesa.getId() + " no está disponible");
         }
         mesa.setDisponible(false);
-        mesaRepository.save(mesa); // Actualizar el estado de la mesa
-        return reservaRepository.save(reserva); // Guardar la reserva
+        mesaRepository.save(mesa);
+        return reservaRepository.save(reserva);
     }
+    
     
 
     public List<reserva> listarReservas() {
