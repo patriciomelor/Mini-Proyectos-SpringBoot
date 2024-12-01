@@ -3,7 +3,7 @@ package com.sabor.gourmet.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Mesa {
+public class mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

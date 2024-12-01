@@ -1,9 +1,11 @@
 package com.sabor.gourmet.services;
 
-import com.sabor.gourmet.model.Mesa;
+import com.sabor.gourmet.model.mesa;
+import com.sabor.gourmet.model.reserva;
 import com.sabor.gourmet.repository.MesaRepository;
 import com.sabor.gourmet.repository.ReservaRepository;
-import com.sabor.gourmet.model.Reserva;
+import com.sabor.gourmet.exceptions.MesaNoDisponibleException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,38 +19,27 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public Reserva crearReserva(Reserva reserva) {
-        Mesa mesa = mesaRepository.findById(reserva.getMesa().getId())
-                                   .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
-        if (!mesa.isDisponible()) throw new RuntimeException("Mesa no disponible");
+    public reserva crearReserva(reserva reserva) {
+        mesa mesa = reserva.getMesa();
+        if (!mesa.isDisponible()) {
+            throw new MesaNoDisponibleException("La mesa con ID " + mesa.getId() + " no está disponible");
+        }
         mesa.setDisponible(false);
-        mesaRepository.save(mesa);
-        return reservaRepository.save(reserva);
+        mesaRepository.save(mesa); // Actualizar el estado de la mesa
+        return reservaRepository.save(reserva); // Guardar la reserva
     }
 
-    public List<Reserva> listarReservas() {
-        return reservaRepository.findAll();
+    public List<reserva> listarReservas() {
+        return reservaRepository.findAll(); // Retornar todas las reservas
     }
 
     public void cancelarReserva(Long id) {
-        Reserva reserva = reservaRepository.findById(id)
-                                           .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
-        reserva.setActiva(false);
-        reserva.getMesa().setDisponible(true);
+        reserva reserva = reservaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Reserva no encontrada con ID " + id));
+        mesa mesa = reserva.getMesa();
+        mesa.setDisponible(true); // Liberar la mesa
+        reserva.setActiva(false); // Cancelar la reserva
         reservaRepository.save(reserva);
-        mesaRepository.save(reserva.getMesa());
-    }
-}
-
-// Excepciones personalizadas
-class MesaNoEncontradaException extends RuntimeException {
-    public MesaNoEncontradaException(String message) {
-        super(message);
-    }
-}
-
-class MesaNoDisponibleException extends RuntimeException {
-    public MesaNoDisponibleException(String message) {
-        super(message);
+        mesaRepository.save(mesa); // Guardar cambios en la mesa
     }
 }
