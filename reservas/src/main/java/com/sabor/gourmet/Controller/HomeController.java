@@ -1,4 +1,4 @@
-package com.sabor.gourmet.Controller;
+package com.sabor.gourmet.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 

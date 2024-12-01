@@ -1,32 +1,28 @@
-package com.sabor.gourmet.Services;
+package com.sabor.gourmet.services;
 
+import com.sabor.gourmet.model.Mesa;
+import com.sabor.gourmet.repository.MesaRepository;
+import com.sabor.gourmet.repository.ReservaRepository;
+import com.sabor.gourmet.model.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.sabor.gourmet.Model.Mesa;
-import com.sabor.gourmet.Model.Reserva;
-import com.sabor.gourmet.Repository.MesaRepository;
-import com.sabor.gourmet.Repository.ReservaRepository;
-
 import java.util.List;
 
 @Service
 public class ReservaService {
 
     @Autowired
-    private ReservaRepository reservaRepository;
+    private MesaRepository mesaRepository;
 
     @Autowired
-    private MesaRepository mesaRepository;
+    private ReservaRepository reservaRepository;
 
     public Reserva crearReserva(Reserva reserva) {
         Mesa mesa = mesaRepository.findById(reserva.getMesa().getId())
-                .orElseThrow(() -> new MesaNoEncontradaException("Mesa no encontrada"));
-        if (!mesa.isDisponible()) {
-            throw new MesaNoDisponibleException("Mesa no disponible");
-        }
+                                   .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
+        if (!mesa.isDisponible()) throw new RuntimeException("Mesa no disponible");
         mesa.setDisponible(false);
-        mesaRepository.save(mesa); 
+        mesaRepository.save(mesa);
         return reservaRepository.save(reserva);
     }
 
@@ -36,10 +32,11 @@ public class ReservaService {
 
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada")); 
+                                           .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
         reserva.setActiva(false);
         reserva.getMesa().setDisponible(true);
-        reservaRepository.save(reserva); // La mesa se guarda en cascada.
+        reservaRepository.save(reserva);
+        mesaRepository.save(reserva.getMesa());
     }
 }
 

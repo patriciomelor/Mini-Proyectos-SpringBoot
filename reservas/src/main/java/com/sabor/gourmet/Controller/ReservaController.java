@@ -1,12 +1,12 @@
-package com.sabor.gourmet.Controller;
+package com.sabor.gourmet.controller;
+
+import com.sabor.gourmet.model.Reserva; // Importa la clase Reserva del paquete model
+import com.sabor.gourmet.services.ReservaService; // Si estás usando el servicio en este controlador
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.sabor.gourmet.Model.Reserva;
-import com.sabor.gourmet.Services.ReservaService;
 
 @Controller
 @RequestMapping("/reservas")

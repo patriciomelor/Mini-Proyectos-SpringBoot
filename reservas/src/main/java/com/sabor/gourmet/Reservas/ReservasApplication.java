@@ -1,4 +1,4 @@
-package com.sabor.gourmet.Reservas;
+package com.sabor.gourmet.reservas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

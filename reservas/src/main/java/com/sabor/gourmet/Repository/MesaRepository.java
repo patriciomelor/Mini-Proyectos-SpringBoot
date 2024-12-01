@@ -1,6 +1,6 @@
-package com.sabor.gourmet.Repository;
+package com.sabor.gourmet.repository;
 
+import com.sabor.gourmet.model.Mesa;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.sabor.gourmet.Model.Mesa;
 
 public interface MesaRepository extends JpaRepository<Mesa, Long> {}

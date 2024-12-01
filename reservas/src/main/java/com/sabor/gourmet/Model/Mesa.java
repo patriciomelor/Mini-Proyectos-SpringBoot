@@ -1,4 +1,4 @@
-package com.sabor.gourmet.Model;
+package com.sabor.gourmet.model;
 
 import jakarta.persistence.*;
 
@@ -11,7 +11,7 @@ public class Mesa {
     private int capacidad;
     private boolean disponible;
 
-    // Getters and Setters
+    // Getters y setters
     public Long getId() {
         return id;
     }

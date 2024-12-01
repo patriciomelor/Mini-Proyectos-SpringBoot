@@ -1,4 +1,4 @@
-package com.sabor.gourmet.Model;
+package com.sabor.gourmet.model;
 
 import jakarta.persistence.*;
 
