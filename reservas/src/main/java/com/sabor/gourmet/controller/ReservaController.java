@@ -1,8 +1,8 @@
 package com.sabor.gourmet.controller;
 
-import com.sabor.gourmet.model.reserva;
-import com.sabor.gourmet.model.cliente;
-import com.sabor.gourmet.model.mesa;
+import com.sabor.gourmet.model.Cliente;
+import com.sabor.gourmet.model.Reserva;
+import com.sabor.gourmet.model.Mesa;
 import com.sabor.gourmet.repository.ClienteRepository;
 import com.sabor.gourmet.repository.MesaRepository;
 import com.sabor.gourmet.repository.ReservaRepository;
@@ -10,7 +10,6 @@ import com.sabor.gourmet.services.ReservaService;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +38,7 @@ public class ReservaController {
 
     @GetMapping
     public String listarReservas(Model model) {
-        List<reserva> reservas = reservaRepository.findAll();
+        List<Reserva> reservas = reservaRepository.findAll();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         reservas.forEach(reserva -> {
@@ -56,25 +55,25 @@ public class ReservaController {
     public String mostrarFormularioReserva(Model model) {
         model.addAttribute("clientes", clienteRepository.findAll());
         model.addAttribute("mesas", mesaRepository.findByDisponible(true));
-        model.addAttribute("reserva", new reserva());
+        model.addAttribute("reserva", new Reserva());
         return "reservas/crear";
     }
 
     @PostMapping("/crear")
     public String crearReserva(@RequestParam(required = true) Long clienteId, @RequestParam(required = true) Long mesaId) {
         if (clienteId == null || clienteId <= 0) {
-            throw new IllegalArgumentException("ID de cliente no válido.");
+            throw new IllegalArgumentException("ID de Cliente no válido.");
         }
         if (mesaId == null || mesaId <= 0) {
             throw new IllegalArgumentException("ID de mesa no válido.");
         }
 
-        cliente cliente = clienteRepository.findById(clienteId)
+        Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + clienteId));
-        mesa mesa = mesaRepository.findById(mesaId)
+        Mesa mesa = mesaRepository.findById(mesaId)
                 .orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID: " + mesaId));
 
-        reserva reserva = new reserva();
+        Reserva reserva = new Reserva();
         reserva.setCliente(cliente);
         reserva.setMesa(mesa);
         reserva.setActiva(true);
