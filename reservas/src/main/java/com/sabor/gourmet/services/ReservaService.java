@@ -28,6 +28,7 @@ public class ReservaService {
         mesaRepository.save(mesa); // Actualizar el estado de la mesa
         return reservaRepository.save(reserva); // Guardar la reserva
     }
+    
 
     public List<reserva> listarReservas() {
         return reservaRepository.findAll(); // Retornar todas las reservas
@@ -42,4 +43,5 @@ public class ReservaService {
         reservaRepository.save(reserva);
         mesaRepository.save(mesa); // Guardar cambios en la mesa
     }
+    
 }

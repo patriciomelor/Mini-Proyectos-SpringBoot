@@ -13,7 +13,7 @@
                 <input type="text" id="Cliente" name="Cliente.nombre" class="form-control">
             </div>
             <label for="mesaId">Selecciona una mesa:</label>
-            <select name="mesaId" id="mesaId" required>
+            <select name="mesaId" id="mesaId" class="form-control" required>
                 <option value="" disabled selected>Selecciona una mesa</option>
                 <th:block th:each="mesa : ${mesas}">
                     <option th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.id} + ' - Capacidad: ' + ${mesa.capacidad}"></option>

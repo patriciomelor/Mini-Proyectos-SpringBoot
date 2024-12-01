@@ -1,24 +1,29 @@
 package com.sabor.gourmet.controller;
 
+import com.sabor.gourmet.model.reserva;
 import com.sabor.gourmet.model.mesa;
-import com.sabor.gourmet.model.reserva; // Importa la clase reserva del paquete model
 import com.sabor.gourmet.repository.MesaRepository;
-import com.sabor.gourmet.services.ReservaService; // Si estás usando el servicio en este controlador
+import com.sabor.gourmet.services.ReservaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
 
-    @Autowired
-    private ReservaService ReservaService;
+  @Autowired
+    private MesaRepository mesaRepository;
 
     @Autowired
-    private MesaRepository mesaRepository;
+    private ReservaService ReservaService;
 
     @GetMapping
     public String listarreservas(Model model) {
@@ -27,20 +32,19 @@ public class ReservaController {
     }
 
     @GetMapping("/crear")
-    public String mostrarFormularioreserva(Model model) {
+    public String mostrarFormularioReserva(Model model) {
+        List<mesa> mesasDisponibles = mesaRepository.findByDisponible(true);
+        model.addAttribute("mesas", mesasDisponibles);
         model.addAttribute("reserva", new reserva());
-        model.addAttribute("mesas", mesaRepository.findAll()); // Pasar mesas disponibles al formulario
-        return "reservas/crear"; // Vista para crear reservas
+        return "reservas/crear";
     }
 
     @PostMapping("/crear")
-    public String crearreserva(@RequestParam Long mesaId, @ModelAttribute reserva reserva) {
-        mesa mesa = mesaRepository.findById(mesaId)
-            .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
-        reserva.setMesa(mesa); // Relacionar la reserva con la mesa seleccionada
+    public String crearReserva(reserva reserva) {
         ReservaService.crearReserva(reserva);
-        return "redirect:/reservas"; // Redirigir a la lista de reservas
+        return "redirect:/reservas";
     }
+    
 
     @PostMapping("/cancelar/{id}")
     public String cancelarreserva(@PathVariable Long id) {
