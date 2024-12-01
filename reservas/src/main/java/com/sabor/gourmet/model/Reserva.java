@@ -11,38 +11,12 @@ public class Reserva {
     private Long id;
 
     @ManyToOne
-    private Cliente cliente;
-
-    @ManyToOne
-    private Mesa mesa;
-
-    @Column(nullable = false)
-    private LocalDate fecha;
-
-    @Column(nullable = false)
-    private LocalTime hora;
+    @JoinColumn(name = "mesa_id", nullable = false)
+    private mesa mesa;
 
     private boolean activa;
 
-    @Transient // Indica que no se persiste en la base de datos
-    private String fechaFormatted;
-
-    public String getFechaFormatted() {
-        return fechaFormatted;
-    }
-
-    public void setFechaFormatted(String fechaFormatted) {
-        this.fechaFormatted = fechaFormatted;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
-    }
-
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -51,16 +25,8 @@ public class Reserva {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Mesa getMesa() {
-        return this.mesa;
+    public mesa getMesa() {
+        return mesa;
     }
 
     public void setMesa(Mesa mesa) {
@@ -73,13 +39,5 @@ public class Reserva {
 
     public void setActiva(boolean activa) {
         this.activa = activa;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 }

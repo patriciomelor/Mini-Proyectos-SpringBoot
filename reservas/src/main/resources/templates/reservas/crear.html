@@ -9,24 +9,13 @@
         <h1>Crear Reserva</h1>
         <form th:action="@{/reservas/crear}" method="post">
             <div class="mb-3">
-                <label for="clienteId">Cliente:</label>
-                <select name="clienteId" id="clienteId" class="form-control"required>
-                    <option value="" disabled selected>Seleccione un cliente</option>
-                    <!-- Lista de clientes -->
-                    <th:block th:each="cliente : ${clientes}">
-                        <option th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
-                    </th:block>
-                </select>
-             </div>
+                <label for="Cliente" class="form-label">Cliente</label>
+                <input type="text" id="Cliente" name="Cliente.nombre" class="form-control">
+            </div>
             <div class="mb-3">
-                <label for="mesaId">Mesa:</label>
-                <select name="mesaId" id="mesaId" class="form-control"required>
-                    <option value="" disabled selected>Seleccione una mesa</option>
-                    <!-- Suponiendo que mesas es una lista pasada desde el controlador -->
-                    <th:block th:each="mesa : ${mesas}">
-                        <option th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.id}"></option>
-                    </th:block>
-            
+                <label for="mesaId" class="form-label">Seleccionar Mesa</label>
+                <select name="mesaId" id="mesaId" class="form-select">
+                    <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.id} + ' (Capacidad: ' + ${mesa.capacidad} + ')'"></option>
                 </select>
             </div>
             <div class="mb-3">
