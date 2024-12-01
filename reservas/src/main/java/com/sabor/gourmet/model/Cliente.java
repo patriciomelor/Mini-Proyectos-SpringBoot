@@ -3,7 +3,7 @@ package com.sabor.gourmet.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Cliente {
+public class cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

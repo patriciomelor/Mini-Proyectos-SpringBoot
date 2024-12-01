@@ -1,7 +1,7 @@
 package com.sabor.gourmet.services;
 
-import com.sabor.gourmet.model.Reserva;
-import com.sabor.gourmet.model.Mesa;
+import com.sabor.gourmet.model.mesa;
+import com.sabor.gourmet.model.reserva;
 import com.sabor.gourmet.repository.MesaRepository;
 import com.sabor.gourmet.repository.ReservaRepository;
 import com.sabor.gourmet.exceptions.MesaNoDisponibleException;
@@ -19,11 +19,11 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
     
-    public Reserva crearReserva(Reserva reserva) {
+    public reserva crearReserva(reserva reserva) {
         if (reserva.getMesa() == null) {
-            throw new RuntimeException("No se ha asociado una mesa a la Reserva");
+            throw new RuntimeException("No se ha asociado una mesa a la reserva");
         }
-        Mesa mesa = reserva.getMesa();
+        mesa mesa = reserva.getMesa();
         if (!mesa.isDisponible()) {
             throw new MesaNoDisponibleException("La mesa con ID " + mesa.getId() + " no está disponible");
         }
@@ -34,14 +34,14 @@ public class ReservaService {
     
     
 
-    public List<Reserva> listarReservas() {
-        return reservaRepository.findAll(); // Retornar todas las reservas
+    public List<reserva> listarReservas() {
+        return reservaRepository.findAll(); 
     }
 
     public void cancelarReserva(Long id) {
-        Reserva reserva = reservaRepository.findById(id)
+        reserva reserva = reservaRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Reserva no encontrada con ID " + id));
-        Mesa mesa = reserva.getMesa();
+        mesa mesa = reserva.getMesa();
         mesa.setDisponible(true); // Liberar la mesa
         reserva.setActiva(false); // Cancelar la Reserva
         reservaRepository.save(reserva);

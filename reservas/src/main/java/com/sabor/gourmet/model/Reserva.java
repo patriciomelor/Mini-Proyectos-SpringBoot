@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import jakarta.persistence.*;
 
 @Entity
-public class Reserva {
+public class reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +29,7 @@ public class Reserva {
         return mesa;
     }
 
-    public void setMesa(Mesa mesa) {
+    public void setMesa(mesa mesa) {
         this.mesa = mesa;
     }
 

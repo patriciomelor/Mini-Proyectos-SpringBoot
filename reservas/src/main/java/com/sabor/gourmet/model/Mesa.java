@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Mesa {
+public class mesa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

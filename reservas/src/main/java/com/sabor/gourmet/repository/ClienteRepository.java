@@ -1,6 +1,11 @@
 package com.sabor.gourmet.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.sabor.gourmet.model.Cliente;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {}
+import com.sabor.gourmet.model.cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ClienteRepository extends JpaRepository<cliente, Long> {
+    // Aquí puedes agregar métodos personalizados si es necesario
+}
