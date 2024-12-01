@@ -4,27 +4,29 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Clase que representa una reserva en el sistema.
+ * Mapea la tabla "reserva" en la base de datos.
+ */
 @Entity
 public class reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "mesa_id", nullable = false)
+    @ManyToOne // Relación muchos-a-uno con la entidad "mesa"
+    @JoinColumn(name = "mesa_id", nullable = false) // Clave foránea en la tabla "reserva"
     private mesa mesa;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @ManyToOne // Relación muchos-a-uno con la entidad "cliente"
+    @JoinColumn(name = "cliente_id", nullable = false) // Clave foránea en la tabla "reserva"
     private cliente cliente;
 
-    private LocalDate fecha;
+    private LocalDate fecha; // Fecha de la reserva
+    private LocalTime hora; // Hora de la reserva
+    private boolean activa; // Estado de la reserva (activa o cancelada)
 
-    private LocalTime hora;
-
-    private boolean activa;
-
-    // Getters y setters
+    // Getters y setters para acceder y modificar los atributos
     public Long getId() {
         return id;
     }

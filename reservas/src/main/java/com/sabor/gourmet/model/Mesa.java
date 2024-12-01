@@ -2,15 +2,18 @@ package com.sabor.gourmet.model;
 
 import jakarta.persistence.*;
 
+/**
+ * Clase que representa una mesa en el sistema.
+ * Mapea la tabla "mesa" en la base de datos.
+ */
 @Entity
 public class mesa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
     private Long id;
 
-    private int capacidad;
-
-    private boolean disponible;
+    private int capacidad; // Capacidad máxima de la mesa
+    private boolean disponible; // Estado de la mesa (disponible o ocupada)
 
     // Getters y setters
     public Long getId() {
