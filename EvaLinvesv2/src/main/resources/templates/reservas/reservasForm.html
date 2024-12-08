@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Crear Nueva Reserva</h1>
+
+        <form th:action="@{/reservas/nueva}" th:object="${reserva}" method="post" class="needs-validation" novalidate>
+            
+            <!-- Selector de Cliente -->
+            <div class="mb-3">
+                <label for="cliente" class="form-label">Cliente:</label>
+                <select id="cliente" name="cliente.id" th:field="*{cliente.id}" class="form-select" required>
+                    <option value="" disabled selected>Seleccione un cliente</option>
+                    <th:block th:each="cliente : ${clientes}">
+                        <option th:value="${cliente.id}" th:text="${cliente.nombreCliente}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">
+                    Por favor, seleccione un cliente.
+                </div>
+            </div>
+
+            <!-- Selector de Mesa -->
+            <div class="mb-3">
+                <label for="mesa" class="form-label">Mesa:</label>
+                <select id="mesa" th:field="*{mesa.id}" class="form-select" required>
+                    <option value="" disabled selected>Seleccione una mesa</option>
+                    <th:block th:each="mesa : ${mesasDisponibles}">
+                        <option th:value="${mesa.id}" th:text="'Mesa ' + ${mesa.numeroMesa}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">
+                    Por favor, seleccione una mesa disponible.
+                </div>
+            </div>
+
+            <!-- Fecha y Hora -->
+            <div class="mb-3">
+                <label for="fechaHora" class="form-label">Fecha y Hora:</label>
+                <input type="datetime-local" id="fechaHora" th:field="*{fechaHora}" class="form-control" required />
+                <div class="invalid-feedback">
+                    Por favor, seleccione una fecha y hora.
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a th:href="@{/reservas/lista}" class="btn btn-secondary">Volver al listado</a>
+                <!-- Botón para Volver al Menú -->
+                <a href="/" class="btn btn-info">Volver al Menú</a>
+            </div>
+        </form>
+
+        <!-- Mensaje de error -->
+        <p th:if="${param.error == 'mesaNoDisponible'}" class="text-danger mt-3">
+            La mesa seleccionada no está disponible.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

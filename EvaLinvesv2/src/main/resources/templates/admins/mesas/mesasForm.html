@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Mesas</title>
+</head>
+<body>
+    <h1 th:text="${mesa.id != null ? 'Editar Mesa' : 'Nueva Mesa'}"></h1>
+
+    <form th:action="@{${mesa.id != null ? '/admins/mesas/editar/' + ${mesa.id} : '/admins/mesas/nuevo'}}" 
+          th:object="${mesa}" 
+          method="post">
+        <label for="numeroMesa">Número de Mesa:</label>
+        <input type="number" id="numeroMesa" th:field="{numeroMesa}" required />
+
+        <label for="capacidad">Capacidad:</label>
+        <input type="number" id="capacidad" th:field="{capacidad}" required />
+
+        <label for="disponible">Disponible:</label>
+        <input type="checkbox" id="disponible" th:field="*{disponible}" />
+
+        <button type="submit">Guardar</button>
+        <a href="/mesas/lista">Cancelar</a>
+    </form>
+</body>
+</html>

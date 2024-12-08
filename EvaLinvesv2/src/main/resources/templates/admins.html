@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1>Panel de Administración</h1>
+        <div class="mt-4">
+            <!-- Enlace para gestionar clientes -->
+            <a th:href="@{/clientes/form}" class="btn btn-primary btn-lg">Crear Clientes</a>
+            <!-- Botón para listar clientes -->
+            <a th:href="@{/clientes/list}" class="btn btn-info btn-lg ">Gestionar Clientes</a>
+
+            <!-- Enlace para gestionar mesas -->
+            <a th:href="@{/admins/mesas}" class="btn btn-warning btn-lg">Gestion de Mesas</a>
+
+            <!-- Enlace para gestionar reservas -->
+            <a th:href="@{/reservas/lista}" class="btn btn-success btn-lg">Crear y gestionar Reservas</a>
+
+            <!-- Botón para regresar al home -->
+            <a th:href="@{/}" class="btn btn-info btn-lg ">Volver al Inicio</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Reserva</title>
+    <!-- Enlace a Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Editar Reserva</h1>
+
+        <!-- Formulario -->
+        <form th:action="@{'/reservas/editar'}" th:object="${reserva}" method="post">
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" th:field="*{id}">
+
+            <!-- Selecci贸n de Cliente -->
+            <div class="mb-3">
+                <label for="cliente" class="form-label">Cliente:</label>
+                <select id="cliente" name="cliente.id" th:field="*{cliente.id}" class="form-select">
+                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombreCliente}"
+                            th:selected="${cliente.id == reserva.cliente.id}"></option>
+                </select>
+            </div>
+
+            <!-- Selecci贸n de Mesa -->
+            <div class="mb-3">
+                <label for="mesa" class="form-label">Mesa:</label>
+                <select id="mesa" name="mesa.id" th:field="*{mesa.id}" class="form-select">
+                    <option th:each="mesa : ${mesasDisponibles}" th:value="${mesa.id}" th:text="${mesa.numeroMesa}"
+                            th:selected="${mesa.id == reserva.mesa.id}"></option>
+                </select>
+            </div>
+
+            <!-- Fecha y Hora -->
+            <div class="mb-3">
+                <label for="fechaHora" class="form-label">Fecha y Hora:</label>
+                <input type="datetime-local" id="fechaHora" name="fechaHora" th:field="*{fechaHora}" class="form-control" required>
+            </div>
+
+            <!-- Bot贸n de Enviar -->
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
+
+        <!-- Bot贸n para volver a la lista -->
+        <a href="/reservas/lista" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+
+    <!-- Enlace a Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

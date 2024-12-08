@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Mesas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Referencia al archivo CSS externo -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center mb-4">Lista de Mesas</h1>
+
+        <!-- Tabla de Mesas con Bootstrap -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Número de Mesa</th>
+                    <th>Capacidad</th> <!-- Columna de Capacidad añadida -->
+                    <th>Disponible</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mesa : ${mesas}">
+                    <td th:text="${mesa.id}"></td>
+                    <td th:text="${mesa.numeroMesa}"></td>
+                    <td th:text="${mesa.capacidad}"></td> <!-- Mostrar la capacidad de la mesa -->
+                    <td th:text="${mesa.disponible ? 'Sí' : 'No'}"></td>
+                    <td>
+                        <a th:href="@{'/mesas/' + ${mesa.id}}" class="btn btn-info btn-sm">Ver</a> |
+                        <a th:href="@{'/mesas/editar/' + ${mesa.id}}" class="btn btn-warning btn-sm">Editar</a> |
+                        <a th:href="@{'/mesas/eliminar/' + ${mesa.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Botones de acción -->
+        <div class="d-flex">
+            <a href="mesas/nuevo" class="btn btn-primary btn-sm">Nueva Mesa</a>
+            <a href="/" class="btn btn-secondary btn-sm">Volver al Menú</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

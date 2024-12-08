@@ -1,0 +1,204 @@
+/* estilos.css */
+
+/* Estilo general de la tabla */
+.table-container {
+    background: #f8f9fa; /* Fondo suave para el contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+    padding: 20px; /* Espaciado interno */
+    margin-top: 30px; /* Margen superior para separar de otros elementos */
+}
+
+.table {
+    border-radius: 10px; /* Bordes redondeados en la tabla */
+    overflow: hidden; /* Ocultar bordes excesivos */
+}
+
+/* Estilo del encabezado */
+.table thead {
+    background-color: #2c3e50; /* Color oscuro para el encabezado */
+    color: white;
+    text-align: center; /* Alineación centrada */
+}
+
+.table th {
+    font-size: 1.2rem; /* Aumentamos el tamaño de la fuente */
+    padding: 15px; /* Más espacio en las celdas del encabezado */
+}
+
+/* Estilo del cuerpo de la tabla */
+.table tbody {
+    background-color: white;
+}
+
+.table td {
+    text-align: center; /* Centrado de los datos */
+    padding: 12px; /* Más espacio en las celdas */
+    font-size: 1rem; /* Tamaño de fuente adecuado */
+}
+
+/* Bordes de las celdas */
+.table-bordered td, .table-bordered th {
+    border: 1px solid #e1e1e1; /* Bordes suaves entre celdas */
+}
+
+/* Efecto hover en filas */
+.table tbody tr:hover {
+    background-color: #ecf0f1; /* Color suave en hover */
+    transform: scale(1.02); /* Efecto de aumento sutil */
+    transition: all 0.3s ease-in-out; /* Transición suave */
+}
+
+/* Efecto de hover en botones */
+.btn:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra en hover */
+    transform: translateY(-2px); /* Efecto de elevación */
+    transition: all 0.2s ease; /* Transición suave */
+}
+
+/* Estilo de los botones */
+.btn-sm {
+    font-size: 0.9rem; /* Tamaño de fuente pequeño */
+    padding: 0.5rem 1rem; /* Espaciado adecuado */
+}
+
+.btn-info {
+    background-color: #3498db;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #2980b9;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e67e22;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.d-flex {
+    justify-content: space-between;
+    margin-top: 20px; /* Separación entre los botones */
+}
+
+
+
+/* form.html */
+
+/* Estilo general para el cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Fondo suave */
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor de la página */
+.container {
+    max-width: 800px;
+    margin: 30px auto; /* Centrado y separación superior */
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Título del formulario */
+h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Estilo de las etiquetas de los campos */
+.form-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #34495e;
+}
+
+/* Estilo de los campos de texto */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+/* Efecto al hacer focus en los campos de texto */
+.form-control:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Estilo para el checkbox */
+.form-check-input {
+    margin-top: 10px;
+}
+
+/* Estilo del botón de envío */
+.btn {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Botón principal - Guardar */
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px); /* Elevación en hover */
+}
+
+/* Botón secundario - Volver */
+.btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #95a5a6;
+    transform: translateY(-2px); /* Elevación en hover */
+}
+
+/* Estilo para el espaciado entre campos */
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+/* Enlace de volver */
+a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+/* Estilo en hover para el enlace */
+a:hover {
+    color: #3498db;
+}
