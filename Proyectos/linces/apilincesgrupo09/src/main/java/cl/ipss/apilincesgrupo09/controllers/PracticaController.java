@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/practicas")
 public class PracticaController {
@@ -19,11 +22,22 @@ public class PracticaController {
     @PostMapping
     public ResponseEntity<PracticaResponse> crearPractica(@RequestBody Practica practica) {
         Practica nuevaPractica = practicaService.agregarPractica(practica);
-        PracticaResponse practicaResponse = new PracticaResponse();
-        practicaResponse.setStatus(200);
-        practicaResponse.setMessage("Práctica creada correctamente");
-        practicaResponse.setPractica(nuevaPractica);
-        return ResponseEntity.status(HttpStatus.CREATED).body(practicaResponse);
+        return construirRespuesta(nuevaPractica, "Práctica creada correctamente", HttpStatus.CREATED);
+    }
+
+    // Obtener todas las prácticas
+    @GetMapping
+    public ResponseEntity<List<Practica>> obtenerTodasPracticas() {
+        List<Practica> practicas = practicaService.obtenerTodasPracticas();
+        return ResponseEntity.ok(practicas);
+    }
+
+    // Obtener una práctica por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Practica> obtenerPracticaPorId(@PathVariable String id) {
+        Optional<Practica> practica = practicaService.obtenerPracticaPorId(id);
+        return practica.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     // Actualizar una práctica existente
@@ -31,13 +45,9 @@ public class PracticaController {
     public ResponseEntity<PracticaResponse> actualizarPractica(@PathVariable String id, @RequestBody Practica practica) {
         Practica practicaActualizada = practicaService.actualizarPractica(id, practica);
         if (practicaActualizada == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PracticaResponse());
+            return construirRespuesta(null, "Práctica no encontrada", HttpStatus.NOT_FOUND);
         }
-        PracticaResponse practicaResponse = new PracticaResponse();
-        practicaResponse.setStatus(200);
-        practicaResponse.setMessage("Práctica actualizada correctamente");
-        practicaResponse.setPractica(practicaActualizada);
-        return ResponseEntity.status(HttpStatus.OK).body(practicaResponse);
+        return construirRespuesta(practicaActualizada, "Práctica actualizada correctamente", HttpStatus.OK);
     }
 
     // Eliminar una práctica
@@ -45,11 +55,17 @@ public class PracticaController {
     public ResponseEntity<PracticaResponse> eliminarPractica(@PathVariable String id) {
         boolean eliminado = practicaService.eliminarPractica(id);
         if (!eliminado) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PracticaResponse());
+            return construirRespuesta(null, "Práctica no encontrada", HttpStatus.NOT_FOUND);
         }
+        return construirRespuesta(null, "Práctica eliminada correctamente", HttpStatus.OK);
+    }
+
+    // Método para construir respuestas genéricas
+    private ResponseEntity<PracticaResponse> construirRespuesta(Practica practica, String mensaje, HttpStatus status) {
         PracticaResponse practicaResponse = new PracticaResponse();
-        practicaResponse.setStatus(200);
-        practicaResponse.setMessage("Práctica eliminada correctamente");
-        return ResponseEntity.status(HttpStatus.OK).body(practicaResponse);
+        practicaResponse.setStatus(status.value());
+        practicaResponse.setMessage(mensaje);
+        practicaResponse.setPractica(practica);
+        return ResponseEntity.status(status).body(practicaResponse);
     }
 }

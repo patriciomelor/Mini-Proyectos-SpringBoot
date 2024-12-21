@@ -1,30 +1,22 @@
 package cl.ipss.apilincesgrupo09.models;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
-@Document(collection = "Practica") 
-
+@Document(collection = "Practica")
 public class Practica {
+
+    @Id
     private String id;
-    private Date fechaInicio;
-    private Date fechaTermino;
+    private String nombre_practica;
+    private String empresa;
+    private Date fecha_inicio;
+    private Date fecha_fin;
     private String descripcion;
-    private String empresa;  // Nuevo campo agregado
-    private String jefeDirecto;  // Nuevo campo agregado
+    private String jefeDirecto;  // Agregar campo
 
-    // Constructor
-    public Practica(String id, Date fechaInicio, Date fechaTermino, String descripcion, String empresa, String jefeDirecto) {
-        this.id = id;
-        this.fechaInicio = fechaInicio;
-        this.fechaTermino = fechaTermino;
-        this.descripcion = descripcion;
-        this.empresa = empresa;
-        this.jefeDirecto = jefeDirecto;
-    }
-
-    // Métodos getter y setter para todos los campos
-
+    // Getters y Setters
     public String getId() {
         return id;
     }
@@ -33,20 +25,36 @@ public class Practica {
         this.id = id;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public String getNombre_practica() {
+        return nombre_practica;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setNombre_practica(String nombre_practica) {
+        this.nombre_practica = nombre_practica;
     }
 
-    public Date getFechaTermino() {
-        return fechaTermino;
+    public String getEmpresa() {
+        return empresa;
     }
 
-    public void setFechaTermino(Date fechaTermino) {
-        this.fechaTermino = fechaTermino;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public Date getFecha_inicio() {
+        return fecha_inicio;
+    }
+
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
 
     public String getDescripcion() {
@@ -57,15 +65,7 @@ public class Practica {
         this.descripcion = descripcion;
     }
 
-    public String getEmpresa() {  // Getter para empresa
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
-    public String getJefeDirecto() {  // Getter para jefeDirecto
+    public String getJefeDirecto() {
         return jefeDirecto;
     }
 

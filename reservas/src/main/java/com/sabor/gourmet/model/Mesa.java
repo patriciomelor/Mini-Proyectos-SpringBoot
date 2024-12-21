@@ -1,4 +1,4 @@
-package com.sabor.gourmet.model;
+package com.sabor.gourmet.Model;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,7 @@ import jakarta.persistence.*;
  * Mapea la tabla "mesa" en la base de datos.
  */
 @Entity
-public class mesa {
+public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
     private Long id;

@@ -14,8 +14,12 @@ public class PracticaService {
     @Autowired
     private PracticaRepository practicaRepository;
 
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+
     // Crear o agregar una práctica
     public Practica agregarPractica(Practica practica) {
+        practica.setId(String.valueOf(sequenceGeneratorService.generateSequence("practica_sequence")));
         return practicaRepository.save(practica);
     }
 
@@ -24,13 +28,18 @@ public class PracticaService {
         return practicaRepository.findAll();
     }
 
+    // Obtener una práctica por ID
+    public Optional<Practica> obtenerPracticaPorId(String id) {
+        return practicaRepository.findById(id);
+    }
+
     // Actualizar una práctica
     public Practica actualizarPractica(String id, Practica practica) {
         Optional<Practica> practicaExistente = practicaRepository.findById(id);
         if (practicaExistente.isPresent()) {
             Practica practicaActualizada = practicaExistente.get();
-            practicaActualizada.setFechaInicio(practica.getFechaInicio());
-            practicaActualizada.setFechaTermino(practica.getFechaTermino());
+            practicaActualizada.setFecha_inicio(practica.getFecha_inicio());
+            practicaActualizada.setFecha_fin(practica.getFecha_fin());
             practicaActualizada.setDescripcion(practica.getDescripcion());
             practicaActualizada.setEmpresa(practica.getEmpresa());
             practicaActualizada.setJefeDirecto(practica.getJefeDirecto());

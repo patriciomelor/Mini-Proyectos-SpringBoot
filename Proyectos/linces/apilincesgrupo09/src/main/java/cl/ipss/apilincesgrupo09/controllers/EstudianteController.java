@@ -6,7 +6,7 @@ import cl.ipss.apilincesgrupo09.models.Estudiante;
 import cl.ipss.apilincesgrupo09.services.EstudianteService;
 
 @RestController
-@RequestMapping("/estudiantes")
+@RequestMapping("/api/estudiantes")
 public class EstudianteController {
 
     @Autowired

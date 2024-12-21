@@ -1,4 +1,4 @@
-package com.sabor.gourmet.model;
+package com.sabor.gourmet.Model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -9,18 +9,18 @@ import java.time.LocalTime;
  * Mapea la tabla "reserva" en la base de datos.
  */
 @Entity
-public class reserva {
+public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
     private Long id;
 
-    @ManyToOne // Relación muchos-a-uno con la entidad "mesa"
-    @JoinColumn(name = "mesa_id", nullable = false) // Clave foránea en la tabla "reserva"
-    private mesa mesa;
+    @ManyToOne // Relación muchos-a-uno con la entidad "Mesa"
+    @JoinColumn(name = "Mesa_id", nullable = false) // Clave foránea en la tabla "reserva"
+    private Mesa Mesa;
 
-    @ManyToOne // Relación muchos-a-uno con la entidad "cliente"
-    @JoinColumn(name = "cliente_id", nullable = false) // Clave foránea en la tabla "reserva"
-    private cliente cliente;
+    @ManyToOne // Relación muchos-a-uno con la entidad "Cliente"
+    @JoinColumn(name = "Cliente_id", nullable = false) // Clave foránea en la tabla "reserva"
+    private Cliente Cliente;
 
     private LocalDate fecha; // Fecha de la reserva
     private LocalTime hora; // Hora de la reserva
@@ -35,20 +35,20 @@ public class reserva {
         this.id = id;
     }
 
-    public mesa getMesa() {
-        return mesa;
+    public Mesa getMesa() {
+        return Mesa;
     }
 
-    public void setMesa(mesa mesa) {
-        this.mesa = mesa;
+    public void setMesa(Mesa Mesa) {
+        this.Mesa = Mesa;
     }
 
-    public cliente getCliente() {
-        return cliente;
+    public Cliente getCliente() {
+        return Cliente;
     }
 
-    public void setCliente(cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(Cliente Cliente) {
+        this.Cliente = Cliente;
     }
 
     public LocalDate getFecha() {

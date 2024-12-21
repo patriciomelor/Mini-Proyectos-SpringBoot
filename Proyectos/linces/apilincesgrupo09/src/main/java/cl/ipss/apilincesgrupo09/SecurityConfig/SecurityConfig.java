@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -15,10 +17,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/practicas").permitAll() // Permitir acceso a esta ruta
-                .anyRequest().authenticated() // Requiere autenticación para otras rutas
+                .requestMatchers("/api/practicas").permitAll()  // Permitir sin autenticación
+                .anyRequest().authenticated()  // Proteger el resto
             )
-            .httpBasic(); // Reemplazo moderno para la autenticación básica HTTP
+            .csrf(csrf -> csrf.disable())  // Desactivar CSRF para pruebas POST
+            .httpBasic(withDefaults());  // Autenticación básica
 
         return http.build();
     }
@@ -26,7 +29,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         var user = User.withUsername("admin")
-            .password("{noop}MiClaveSegura123") // Usa {noop} para indicar que la contraseña no está codificada
+            .password("{noop}MiClaveSegura123")  // Sin encriptar (solo para pruebas)
             .roles("USER")
             .build();
         return new InMemoryUserDetailsManager(user);

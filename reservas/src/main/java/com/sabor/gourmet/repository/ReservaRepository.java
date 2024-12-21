@@ -1,7 +1,7 @@
-package com.sabor.gourmet.repository;
+package com.sabor.gourmet.Repository;
 
-import com.sabor.gourmet.model.reserva;
+import com.sabor.gourmet.Model.Reserva;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReservaRepository extends JpaRepository<reserva, Long> {}
+public interface ReservaRepository extends JpaRepository<Reserva, Long> {}

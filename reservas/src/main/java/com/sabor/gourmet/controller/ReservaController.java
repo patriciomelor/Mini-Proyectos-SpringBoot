@@ -1,9 +1,9 @@
-package com.sabor.gourmet.controller;
+package com.sabor.gourmet.Controller;
 
-import com.sabor.gourmet.model.reserva;
-import com.sabor.gourmet.model.mesa;
-import com.sabor.gourmet.services.ReservaService;
-import com.sabor.gourmet.repository.MesaRepository;
+import com.sabor.gourmet.Model.Reserva;
+import com.sabor.gourmet.Model.Mesa;
+import com.sabor.gourmet.Services.ReservaService;
+import com.sabor.gourmet.Repository.MesaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,66 +13,66 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controlador que maneja las rutas y acciones para las reservas.
+ * Controlador que maneja las rutas y acciones para las Reservas.
  */
 @Controller
-@RequestMapping("/reservas")
+@RequestMapping("/Reservas")
 public class ReservaController {
 
     @Autowired
-    private MesaRepository mesaRepository;
+    private MesaRepository MesaRepository;
 
     @Autowired
-    private ReservaService reservaService;
+    private ReservaService ReservaService;
 
     /**
-     * Muestra la lista de reservas.
+     * Muestra la lista de Reservas.
      * @param model Modelo de la vista.
-     * @return Vista de lista de reservas.
+     * @return Vista de lista de Reservas.
      */
     @GetMapping
     public String listarReservas(Model model) {
-        List<reserva> reservas = reservaService.listarReservas();
-        model.addAttribute("reservas", reservas);
-        return "reservas/listar";
+        List<Reserva> Reservas = ReservaService.listarReservas();
+        model.addAttribute("Reservas", Reservas);
+        return "Reservas/listar";
     }
 
     /**
-     * Muestra el formulario para crear una nueva reserva.
+     * Muestra el formulario para crear una nueva Reserva.
      * @param model Modelo de la vista.
      * @return Vista del formulario de creación.
      */
     @GetMapping("/crear")
     public String mostrarFormularioReserva(Model model) {
-        List<mesa> mesasDisponibles = mesaRepository.findByDisponible(true);
-        model.addAttribute("mesas", mesasDisponibles);
-        model.addAttribute("reserva", new reserva());
-        return "reservas/crear";
+        List<Mesa> MesasDisponibles = MesaRepository.findByDisponible(true);
+        model.addAttribute("Mesas", MesasDisponibles);
+        model.addAttribute("Reserva", new Reserva());
+        return "Reservas/crear";
     }
 
     /**
-     * Crea una nueva reserva en el sistema.
-     * @param reserva Objeto reserva con los datos ingresados.
-     * @param mesaId ID de la mesa seleccionada.
-     * @return Redirección a la lista de reservas.
+     * Crea una nueva Reserva en el sistema.
+     * @param Reserva Objeto Reserva con los datos ingresados.
+     * @param MesaId ID de la Mesa seleccionada.
+     * @return Redirección a la lista de Reservas.
      */
     @PostMapping("/crear")
-    public String crearReserva(@ModelAttribute reserva reserva, @RequestParam Long mesaId) {
-        mesa mesa = mesaRepository.findById(mesaId)
-            .orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID " + mesaId));
-        reserva.setMesa(mesa);
-        reservaService.crearReserva(reserva);
-        return "redirect:/reservas";
+    public String crearReserva(@ModelAttribute Reserva Reserva, @RequestParam Long MesaId) {
+        Mesa Mesa = MesaRepository.findById(MesaId)
+            .orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID " + MesaId));
+        Reserva.setMesa(Mesa);
+        ReservaService.crearReserva(Reserva);
+        return "redirect:/Reservas";
     }
 
     /**
-     * Cancela una reserva específica.
-     * @param id ID de la reserva a cancelar.
-     * @return Redirección a la lista de reservas.
+     * Cancela una Reserva específica.
+     * @param id ID de la Reserva a cancelar.
+     * @return Redirección a la lista de Reservas.
      */
     @PostMapping("/cancelar/{id}")
     public String cancelarReserva(@PathVariable Long id) {
-        reservaService.cancelarReserva(id);
-        return "redirect:/reservas";
+        ReservaService.cancelarReserva(id);
+        return "redirect:/Reservas";
     }
 }
