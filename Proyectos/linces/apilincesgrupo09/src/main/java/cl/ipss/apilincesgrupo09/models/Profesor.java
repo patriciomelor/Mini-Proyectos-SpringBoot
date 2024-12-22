@@ -1,36 +1,15 @@
 package cl.ipss.apilincesgrupo09.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import org.springframework.data.annotation.Id;
+import lombok.Data;
 
-@Document(collection = "Profesor") 
-
+@Data
+@Document(collection = "profesores")
 public class Profesor {
+
+    @Id
+    private String id;
     private String nombre;
     private String especialidad;
-
-    // Constructor
-    public Profesor(String nombre, String especialidad) {
-        this.nombre = nombre;
-        this.especialidad = especialidad;
-    }
-
-    // Getter para el nombre
-    public String getNombre() {
-        return nombre;
-    }
-
-    // Setter para el nombre
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    // Getter para la especialidad
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    // Setter para la especialidad
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
 }

@@ -3,19 +3,24 @@ package cl.ipss.apilincesgrupo09.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
+import lombok.Data;
 
-@Document(collection = "Practica")
+@Data
+@Document(collection = "practicas")
 public class Practica {
 
     @Id
     private String id;
     private String nombre_practica;
-    private String empresa;
     private Date fecha_inicio;
     private Date fecha_fin;
     private String descripcion;
-    private String jefeDirecto;  // Agregar campo
 
+    // Relaciones
+    private String estudianteId;
+    private String empresaId;
+    private String jefeDirectoId;
+    private String profesorSupervisorId;
     // Getters y Setters
     public String getId() {
         return id;
@@ -33,12 +38,12 @@ public class Practica {
         this.nombre_practica = nombre_practica;
     }
 
-    public String getEmpresa() {
-        return empresa;
+    public String getEmpresaId() {
+        return empresaId;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setEmpresaId(String empresaId) {
+        this.empresaId = empresaId;
     }
 
     public Date getFecha_inicio() {
@@ -65,11 +70,11 @@ public class Practica {
         this.descripcion = descripcion;
     }
 
-    public String getJefeDirecto() {
-        return jefeDirecto;
+    public String getJefeDirectoId() {
+        return jefeDirectoId;
     }
 
-    public void setJefeDirecto(String jefeDirecto) {
-        this.jefeDirecto = jefeDirecto;
+    public void setJefeDirectoId(String jefeDirectoId) {
+        this.jefeDirectoId = jefeDirectoId;
     }
 }

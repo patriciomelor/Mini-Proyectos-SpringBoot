@@ -1,5 +1,4 @@
 package cl.ipss.apilincesgrupo09.services;
-
 import cl.ipss.apilincesgrupo09.models.Practica;
 import cl.ipss.apilincesgrupo09.repository.PracticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +32,26 @@ public class PracticaService {
         return practicaRepository.findById(id);
     }
 
-    // Actualizar una práctica
+    // Actualizar una práctica existente
     public Practica actualizarPractica(String id, Practica practica) {
+        // Buscar la práctica existente
         Optional<Practica> practicaExistente = practicaRepository.findById(id);
+        
+        // Si la práctica existe, actualiza sus campos
         if (practicaExistente.isPresent()) {
             Practica practicaActualizada = practicaExistente.get();
+            practicaActualizada.setNombre_practica(practica.getNombre_practica());
+            practicaActualizada.setEmpresaId(practica.getEmpresaId());
             practicaActualizada.setFecha_inicio(practica.getFecha_inicio());
             practicaActualizada.setFecha_fin(practica.getFecha_fin());
             practicaActualizada.setDescripcion(practica.getDescripcion());
-            practicaActualizada.setEmpresa(practica.getEmpresa());
-            practicaActualizada.setJefeDirecto(practica.getJefeDirecto());
+            practicaActualizada.setJefeDirectoId(practica.getJefeDirectoId());
+            
+            // Guardar cambios
             return practicaRepository.save(practicaActualizada);
         }
+        
+        // Si no existe, devuelve null
         return null;
     }
 

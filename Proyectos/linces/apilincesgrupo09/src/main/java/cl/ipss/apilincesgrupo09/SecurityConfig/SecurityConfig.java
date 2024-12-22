@@ -7,8 +7,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.Customizer;
 
 @Configuration
 public class SecurityConfig {
@@ -17,11 +18,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/practicas").permitAll()  // Permitir sin autenticación
-                .anyRequest().authenticated()  // Proteger el resto
+                .requestMatchers("/api/practicas").permitAll()  // Permitir GET y POST
+                .requestMatchers("/api/practicas/**").permitAll()  // Permitir PUT y DELETE
+                .anyRequest().authenticated()  // Proteger otras rutas
             )
-            .csrf(csrf -> csrf.disable())  // Desactivar CSRF para pruebas POST
-            .httpBasic(withDefaults());  // Autenticación básica
+            .csrf(csrf -> csrf.disable())  // Desactivar CSRF
+            .httpBasic(Customizer.withDefaults());  // Usar Customizer en lugar de withDefaults()
 
         return http.build();
     }
@@ -29,7 +31,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         var user = User.withUsername("admin")
-            .password("{noop}MiClaveSegura123")  // Sin encriptar (solo para pruebas)
+            .password("{noop}MiClaveSegura123")  // Sin encriptar para pruebas
             .roles("USER")
             .build();
         return new InMemoryUserDetailsManager(user);

@@ -2,31 +2,24 @@ package cl.ipss.apilincesgrupo09.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Data;
 
-@Document(collection = "empresas") // Nombre de la colección en MongoDB
+@Data
+@Document(collection = "empresas")
 public class Empresa {
 
     @Id
-    private String id; // Clave primaria
-
+    private String id;
     private String nombre;
     private String direccion;
     private String telefono;
-
-    // Constructor vacío (obligatorio para Spring Data)
-    public Empresa() {
-    }
-
-    // Constructor con parámetros
     public Empresa(String id, String nombre, String direccion, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
-
     // Getters y Setters
-
     public String getId() {
         return id;
     }
