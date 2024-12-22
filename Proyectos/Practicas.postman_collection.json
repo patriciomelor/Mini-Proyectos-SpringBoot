@@ -16,7 +16,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/estudiantes",
+            "url": "http://localhost:8080/api/estudiantes",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre\": \"Juan Perez\",\n  \"carrera\": \"Ingeniería en Informática\"\n}"
@@ -27,14 +27,14 @@
           "name": "Obtener todos los Estudiantes",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/estudiantes"
+            "url": "http://localhost:8080/api/estudiantes"
           }
         },
         {
           "name": "Obtener Estudiante por ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}"
+            "url": "http://localhost:8080/api/estudiantes/{{estudianteId}}"
           }
         },
         {
@@ -44,7 +44,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}",
+            "url": "http://localhost:8080/api/estudiantes/{{estudianteId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre\": \"Juan Perez Actualizado\",\n  \"carrera\": \"Ingeniería en Software\"\n}"
@@ -55,7 +55,7 @@
           "name": "Eliminar Estudiante",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}"
+            "url": "http://localhost:8080/api/estudiantes/{{estudianteId}}"
           }
         }
       ]
@@ -70,7 +70,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/profesores",
+            "url": "http://localhost:8080/api/profesores",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre\": \"Laura Diaz\",\n  \"especialidad\": \"Desarrollo Web\"\n}"
@@ -81,14 +81,14 @@
           "name": "Obtener todos los Profesores",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/profesores"
+            "url": "http://localhost:8080/api/profesores"
           }
         },
         {
           "name": "Obtener Profesor por ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/profesores/{{profesorId}}"
+            "url": "http://localhost:8080/api/profesores/{{profesorId}}"
           }
         },
         {
@@ -98,7 +98,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/profesores/{{profesorId}}",
+            "url": "http://localhost:8080/api/profesores/{{profesorId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre\": \"Laura Diaz Actualizada\",\n  \"especialidad\": \"Machine Learning\"\n}"
@@ -109,7 +109,7 @@
           "name": "Eliminar Profesor",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/profesores/{{profesorId}}"
+            "url": "http://localhost:8080/api/profesores/{{profesorId}}"
           }
         }
       ]
@@ -124,7 +124,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/practicas",
+            "url": "http://localhost:8080/api/practicas",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre_practica\": \"Desarrollo API REST\",\n  \"empresa\": \"SoftTech\",\n  \"fecha_inicio\": \"2024-01-10\",\n  \"fecha_fin\": \"2024-06-30\",\n  \"descripcion\": \"Creación de API con Spring Boot\",\n  \"jefeDirecto\": \"Carlos Moya\",\n  \"estudianteId\": \"{{estudianteId}}\",\n  \"profesorId\": \"{{profesorId}}\"\n}"
@@ -135,14 +135,14 @@
           "name": "Obtener todas las Prácticas",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/practicas"
+            "url": "http://localhost:8080/api/practicas"
           }
         },
         {
           "name": "Obtener Práctica por ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/practicas/{{practicaId}}"
+            "url": "http://localhost:8080/api/practicas/{{practicaId}}"
           }
         },
         {
@@ -152,7 +152,7 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "url": "{{baseUrl}}/api/practicas/{{practicaId}}",
+            "url": "http://localhost:8080/api/practicas/{{practicaId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre_practica\": \"API REST Avanzada\",\n  \"empresa\": \"SoftTech\",\n  \"fecha_inicio\": \"2024-01-10\",\n  \"fecha_fin\": \"2024-07-15\",\n  \"descripcion\": \"Optimización de servicios REST\",\n  \"jefeDirecto\": \"Carlos Moya\",\n  \"estudianteId\": \"{{estudianteId}}\",\n  \"profesorId\": \"{{profesorId}}\"\n}"
@@ -163,7 +163,7 @@
           "name": "Eliminar Práctica",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/practicas/{{practicaId}}"
+            "url": "http://localhost:8080/api/practicas/{{practicaId}}"
           }
         }
       ]
