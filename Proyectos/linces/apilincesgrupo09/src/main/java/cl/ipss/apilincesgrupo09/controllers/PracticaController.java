@@ -18,6 +18,9 @@ public class PracticaController {
     @Autowired
     private PracticaService practicaService;
 
+    public PracticaController(PracticaService practicaService) {
+        this.practicaService = practicaService;
+    }
     // Crear una nueva práctica
     @PostMapping
     public ResponseEntity<PracticaResponse> crearPractica(@RequestBody Practica practica) {
@@ -47,31 +50,32 @@ public class PracticaController {
 
     // Obtener una práctica por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Practica> obtenerPracticaPorId(@PathVariable String id) {
+    public ResponseEntity<Practica> obtenerPracticaPorId(@PathVariable Long id) {
         Optional<Practica> practica = practicaService.obtenerPracticaPorId(id);
         return practica.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    // Actualizar una práctica existente
     @PutMapping("/{id}")
-    public ResponseEntity<PracticaResponse> actualizarPractica(@PathVariable String id, @RequestBody Practica practica) {
+    public ResponseEntity<PracticaResponse> actualizarPractica(@PathVariable Long id, @RequestBody Practica practica) {
         Practica practicaActualizada = practicaService.actualizarPractica(id, practica);
         if (practicaActualizada == null) {
             return construirRespuesta(null, "Práctica no encontrada", HttpStatus.NOT_FOUND);
         }
         return construirRespuesta(practicaActualizada, "Práctica actualizada correctamente", HttpStatus.OK);
     }
+    
 
     // Eliminar una práctica
     @DeleteMapping("/{id}")
-    public ResponseEntity<PracticaResponse> eliminarPractica(@PathVariable String id) {
+    public ResponseEntity<PracticaResponse> eliminarPractica(@PathVariable Long id) {
         boolean eliminado = practicaService.eliminarPractica(id);
         if (!eliminado) {
             return construirRespuesta(null, "Práctica no encontrada", HttpStatus.NOT_FOUND);
         }
         return construirRespuesta(null, "Práctica eliminada correctamente", HttpStatus.OK);
     }
+    
 
     // Método para construir respuestas genéricas
     private ResponseEntity<PracticaResponse> construirRespuesta(Practica practica, String mensaje, HttpStatus status) {

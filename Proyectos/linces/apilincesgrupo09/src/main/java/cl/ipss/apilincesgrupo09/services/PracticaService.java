@@ -43,12 +43,12 @@ public class PracticaService {
     }
 
     // Obtener una práctica por ID
-    public Optional<Practica> obtenerPracticaPorId(String id) {
+    public Optional<Practica> obtenerPracticaPorId(Long id) {
         return practicaRepository.findById(id);
     }
 
     // Actualizar una práctica existente
-    public Practica actualizarPractica(String id, Practica practica) {
+    public Practica actualizarPractica(Long id, Practica practica) {
         // Buscar la práctica existente
         Optional<Practica> practicaExistente = practicaRepository.findById(id);
         
@@ -71,7 +71,7 @@ public class PracticaService {
     }
 
     // Eliminar una práctica
-    public boolean eliminarPractica(String id) {
+    public boolean eliminarPractica(Long id) {
         Optional<Practica> practicaExistente = practicaRepository.findById(id);
         if (practicaExistente.isPresent()) {
             practicaRepository.delete(practicaExistente.get());

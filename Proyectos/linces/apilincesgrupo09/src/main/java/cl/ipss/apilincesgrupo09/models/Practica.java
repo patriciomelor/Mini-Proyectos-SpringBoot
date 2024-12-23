@@ -8,7 +8,7 @@ import java.util.Date;
 public class Practica {
 
     @Id
-    private long id;
+    private Long id;
     private String nombre_practica;
     private String empresa;
     private Date fecha_inicio;
