@@ -18,22 +18,20 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/practicas").permitAll()  // Permitir GET y POST
-                .requestMatchers("/api/practicas/**").permitAll()  // Permitir PUT y DELETE
-                .anyRequest().authenticated()  // Proteger otras rutas
+                .requestMatchers("/api/**").permitAll()  // Permitir acceso a la API
+                .anyRequest().authenticated()
             )
-            .csrf(csrf -> csrf.disable())  // Desactivar CSRF
-            .httpBasic(Customizer.withDefaults());  // Usar Customizer en lugar de withDefaults()
+            .csrf(csrf -> csrf.disable())  // Desactiva CSRF para pruebas con Postman
+            .httpBasic();  // Autenticación básica
 
         return http.build();
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         var user = User.withUsername("admin")
-            .password("{noop}MiClaveSegura123")  // Sin encriptar para pruebas
-            .roles("USER")
-            .build();
+                .password("{noop}MiClaveSegura123")  // sin encriptar para pruebas
+                .roles("USER")
+                .build();
         return new InMemoryUserDetailsManager(user);
     }
 }

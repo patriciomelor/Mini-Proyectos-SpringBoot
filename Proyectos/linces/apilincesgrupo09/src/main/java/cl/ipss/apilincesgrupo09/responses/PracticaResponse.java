@@ -1,38 +1,43 @@
 package cl.ipss.apilincesgrupo09.responses;
 
-import cl.ipss.apilincesgrupo09.models.Practica;  // Asegúrate de importar la clase Practica correctamente
-import lombok.Data;
+import cl.ipss.apilincesgrupo09.models.Practica;
 
-@Data
 public class PracticaResponse {
+    private int status;
+    private String message;
+    private Practica practica;
 
-    private int status;  // Código de estado HTTP
-    private String message;  // Mensaje de respuesta
-    private Practica practica;  // Aquí guardamos la práctica creada o modificada
-
-    // Métodos setters
-    public void setStatus(int status) {
+    // Constructor que genera el error
+    public PracticaResponse(int i, String string, Object object) {
         this.status = status;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
-    }
-
-    public void setPractica(Practica practica) {
         this.practica = practica;
     }
-
-    // Métodos getters
+    public PracticaResponse() {
+        // Constructor vacío
+    }
+    // Getters y Setters
     public int getStatus() {
         return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Practica getPractica() {
         return practica;
+    }
+
+    public void setPractica(Practica practica) {
+        this.practica = practica;
     }
 }

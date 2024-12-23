@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Estudiante {
 
     @Id
-    private String id;
+    private long id;
     private String nombre;
     private String carrera;
-    public String getId() {
+    public long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getNombre() {
@@ -28,7 +28,7 @@ public class Estudiante {
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
-    public Estudiante(String id, String nombre, String carrera) {
+    public Estudiante(int id, String nombre, String carrera) {
         this.id = id;
         this.nombre = nombre;
         this.carrera = carrera;

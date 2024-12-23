@@ -33,7 +33,7 @@ public class PracticaService {
         if (!profesorRepository.existsById(practica.getProfesorId())) {
             throw new RuntimeException("Profesor no encontrado");
         }
-        practica.setId(String.valueOf(sequenceGeneratorService.generateSequence("practica_sequence")));
+        practica.setId(sequenceGeneratorService.generateSequence("practicas_sequence"));
         return practicaRepository.save(practica);
     }
 

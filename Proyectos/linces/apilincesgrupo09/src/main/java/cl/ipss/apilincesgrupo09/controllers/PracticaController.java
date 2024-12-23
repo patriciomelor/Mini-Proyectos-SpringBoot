@@ -21,9 +21,22 @@ public class PracticaController {
     // Crear una nueva práctica
     @PostMapping
     public ResponseEntity<PracticaResponse> crearPractica(@RequestBody Practica practica) {
-        Practica nuevaPractica = practicaService.agregarPractica(practica);
-        return construirRespuesta(nuevaPractica, "Práctica creada correctamente", HttpStatus.CREATED);
+        try {
+            int estudianteId = Integer.parseInt(String.valueOf(practica.getEstudianteId()));
+            int profesorId = Integer.parseInt(String.valueOf(practica.getProfesorId()));
+    
+            practica.setEstudianteId(estudianteId);
+            practica.setProfesorId(profesorId);
+    
+            Practica nuevaPractica = practicaService.agregarPractica(practica);
+            return construirRespuesta(nuevaPractica, "Práctica creada correctamente", HttpStatus.CREATED);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest()
+                    .body(new PracticaResponse(HttpStatus.BAD_REQUEST.value(),
+                            "EstudianteId o ProfesorId no son válidos", null));
+        }
     }
+    
 
     // Obtener todas las prácticas
     @GetMapping

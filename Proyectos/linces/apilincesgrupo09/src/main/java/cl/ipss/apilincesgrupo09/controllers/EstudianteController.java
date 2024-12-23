@@ -2,6 +2,8 @@ package cl.ipss.apilincesgrupo09.controllers;
 
 import cl.ipss.apilincesgrupo09.models.Estudiante;
 import cl.ipss.apilincesgrupo09.repository.EstudianteRepository;
+import cl.ipss.apilincesgrupo09.services.EstudianteService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,41 +15,45 @@ import java.util.Optional;
 @RequestMapping("/api/estudiantes")
 public class EstudianteController {
 
-    @Autowired
-    private EstudianteRepository estudianteRepository;
+      @Autowired
+    private EstudianteService estudianteService;
 
     @PostMapping
-    public Estudiante crearEstudiante(@RequestBody Estudiante estudiante) {
-        return estudianteRepository.save(estudiante);
+    public ResponseEntity<Estudiante> crearEstudiante(@RequestBody Estudiante estudiante) {
+        Estudiante nuevoEstudiante = estudianteService.crearEstudiante(estudiante);
+        return ResponseEntity.ok(nuevoEstudiante);
     }
 
     @GetMapping
-    public List<Estudiante> obtenerEstudiantes() {
-        return estudianteRepository.findAll();
+    public ResponseEntity<List<Estudiante>> obtenerEstudiantes() {
+        return ResponseEntity.ok(estudianteService.obtenerTodos());
     }
 
+    // Obtener estudiante por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Estudiante> obtenerEstudiantePorId(@PathVariable String id) {
-        Optional<Estudiante> estudiante = estudianteRepository.findById(id);
-        return estudiante.map(ResponseEntity::ok)
+    public ResponseEntity<Estudiante> obtenerEstudiantePorId(@PathVariable int id) {
+        return estudianteService.obtenerEstudiantePorId(id)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Actualizar estudiante
     @PutMapping("/{id}")
-    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable String id, @RequestBody Estudiante estudiante) {
-        if (!estudianteRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable int id, @RequestBody Estudiante estudiante) {
+        Estudiante actualizado = estudianteService.actualizarEstudiante(id, estudiante);
+        if (actualizado != null) {
+            return ResponseEntity.ok(actualizado);
         }
-        estudiante.setId(id);
-        return ResponseEntity.ok(estudianteRepository.save(estudiante));
+        return ResponseEntity.notFound().build();
     }
 
+    // Eliminar estudiante
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarEstudiante(@PathVariable String id) {
-        if (!estudianteRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> eliminarEstudiante(@PathVariable int id) {
+        boolean eliminado = estudianteService.eliminarEstudiante(id);
+        if (eliminado) {
+            return ResponseEntity.noContent().build();
         }
-        estudianteRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
     }
 }

@@ -12,16 +12,20 @@ import cl.ipss.apilincesgrupo09.models.Counter;
 @Service
 public class SequenceGeneratorService {
 
-    @Autowired
-    private MongoOperations mongoOperations;
+    private final MongoOperations mongoOperations;
 
-    public int generateSequence(String seqName) {
-        Counter counter = mongoOperations.findAndModify(
-            new Query(Criteria.where("_id").is(seqName)),
-            new Update().inc("seq", 1),
-            FindAndModifyOptions.options().returnNew(true).upsert(true),
-            Counter.class
-        );
-        return counter != null ? counter.getSeq() : 1;
+    @Autowired
+    public SequenceGeneratorService(MongoOperations mongoOperations) {
+        this.mongoOperations = mongoOperations;
+    }
+
+    // Genera el siguiente valor de secuencia
+    public long generateSequence(String seqName) {
+        Query query = new Query(Criteria.where("_id").is(seqName));
+        Update update = new Update().inc("sequence_value", 1);
+        FindAndModifyOptions options = new FindAndModifyOptions().returnNew(true).upsert(true);
+
+        Counter counter = mongoOperations.findAndModify(query, update, options, Counter.class);
+        return counter != null ? counter.getSequence_value() : 1;
     }
 }

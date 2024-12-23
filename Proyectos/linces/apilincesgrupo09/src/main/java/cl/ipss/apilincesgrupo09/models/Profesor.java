@@ -7,13 +7,13 @@ import org.springframework.data.annotation.Id;
 public class Profesor {
 
     @Id
-    private String id;
+    private Long id;
     private String nombre;
     private String especialidad;
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNombre() {
@@ -28,4 +28,5 @@ public class Profesor {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
+
 }

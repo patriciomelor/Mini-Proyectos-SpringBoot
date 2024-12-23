@@ -8,10 +8,7 @@ import lombok.Data;
 public class Jefedirecto {
 
     @Id
-    private String id;
+    private long id;
     private String nombre;
-    public Jefedirecto(String id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+  
 }

@@ -8,19 +8,19 @@ import java.util.Date;
 public class Practica {
 
     @Id
-    private String id;
+    private long id;
     private String nombre_practica;
     private String empresa;
     private Date fecha_inicio;
     private Date fecha_fin;
     private String descripcion;
     private String jefeDirecto;
-    private String estudianteId;  // Relación con Estudiante
-    private String profesorId;    // Relación con Profesor
-    public String getId() {
+    private int estudianteId;  // Relación con Estudiante
+    private int profesorId;    // Relación con Profesor
+    public long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getNombre_practica() {
@@ -59,17 +59,17 @@ public class Practica {
     public void setJefeDirecto(String jefeDirecto) {
         this.jefeDirecto = jefeDirecto;
     }
-    public String getEstudianteId() {
+    public Integer getEstudianteId() {
         return estudianteId;
     }
-    public void setEstudianteId(String estudianteId) {
+    public void setEstudianteId(int estudianteId) {
         this.estudianteId = estudianteId;
     }
-    public String getProfesorId() {
+    public int getProfesorId() {
         return profesorId;
     }
-    public void setProfesorId(String profesorId) {
-        this.profesorId = profesorId;
+    public void setProfesorId(int profesorId2) {
+        this.profesorId = profesorId2;
     }
 
 

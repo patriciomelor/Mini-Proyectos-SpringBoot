@@ -9,22 +9,22 @@ import lombok.Data;
 public class Empresa {
 
     @Id
-    private String id;
+    private long id;
     private String nombre;
     private String direccion;
     private String telefono;
-    public Empresa(String id, String nombre, String direccion, String telefono) {
+    public Empresa(long id, String nombre, String direccion, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
     // Getters y Setters
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
