@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JefeDirectoRepository extends MongoRepository<Jefedirecto, String> {
+public interface JefeDirectoRepository extends MongoRepository<Jefedirecto, Long> {
     
 }
