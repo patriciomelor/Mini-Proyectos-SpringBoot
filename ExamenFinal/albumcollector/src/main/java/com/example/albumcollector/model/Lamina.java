@@ -3,7 +3,7 @@ package com.example.albumcollector.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 @Entity
 public class Lamina {
     @Id
@@ -19,6 +19,12 @@ public class Lamina {
     @NotNull(message = "El estado es obligatorio")
     private String estado; // Faltante o repetida
 
+    @ManyToOne
+    @JoinColumn(name = "album_id", nullable = false)
+    @NotNull(message = "El álbum es obligatorio")
+    private Album album;
+    
+    //Getter&Setter ↓↓↓↓
     public Long getId() {
         return id;
     }
@@ -51,8 +57,13 @@ public class Lamina {
         this.estado = estado;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "album_id")
-    private Album album;
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
 
 }
